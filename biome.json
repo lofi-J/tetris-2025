@@ -1,0 +1,31 @@
+{
+	"files": {
+		"ignoreUnknown": true,
+		"ignore": ["node_modules"]
+	},
+
+	"organizeImports": {
+		"enabled": true
+	},
+
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": true,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"trimTrailingWhitespace": true,
+		"wrapLength": 120,
+		"attributePosition": "auto"
+	},
+
+	"linter": {
+		"recommended": true,
+		"complexity": {
+			"noVoid": "error"
+		},
+		"correctness": {
+			"noUnusedImports": "error"
+		}
+	}
+}
