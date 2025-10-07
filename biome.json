@@ -1,31 +1,23 @@
 {
-	"files": {
-		"ignoreUnknown": true,
-		"ignore": ["node_modules"]
-	},
+  "files": {
+    "ignoreUnknown": true,
+    "experimentalScannerIgnores": ["node_modules"]
+  },
 
-	"organizeImports": {
-		"enabled": true
-	},
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
 
-	"formatter": {
-		"enabled": true,
-		"formatWithErrors": true,
-		"indentStyle": "space",
-		"indentWidth": 2,
-		"lineEnding": "lf",
-		"trimTrailingWhitespace": true,
-		"wrapLength": 120,
-		"attributePosition": "auto"
-	},
-
-	"linter": {
-		"recommended": true,
-		"complexity": {
-			"noVoid": "error"
-		},
-		"correctness": {
-			"noUnusedImports": "error"
-		}
-	}
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "attributePosition": "auto"
+  }
 }
