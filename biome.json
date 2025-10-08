@@ -7,7 +7,10 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "options": {
+          "indentifierOrder": "natural"
+        }
       }
     }
   },
