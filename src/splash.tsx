@@ -1,39 +1,37 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "./assets/tetris-2025-splash.png";
 
 function Splash() {
-  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      setCount(1);
-    }, 1000);
+    const now = new Date();
+    const lastSplashAt = localStorage.getItem("splash_at");
+    if (lastSplashAt) {
+      const lastSplashAtDate = new Date(lastSplashAt);
+      const diff = now.getTime() - lastSplashAtDate.getTime();
+
+      // 1 hour
+      if (diff < 1000 * 60 * 60 * 1) {
+        localStorage.setItem("splash_at", now.toISOString());
+        navigate("/home");
+      }
+
+      setTimeout(() => {
+        navigate("/home");
+      }, 3000);
+    }
   }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noopener">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noopener">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main className="min-h-screen min-w-screen bg-black flex items-center justify-center">
+      <img
+        src={logo}
+        alt="splash image"
+        className="w-full h-full object-contain"
+      />
+    </main>
   );
 }
 

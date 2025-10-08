@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./global.css";
+import SceneHome from "./scene/scene-home.tsx";
 import Splash from "./splash.tsx";
 
 const rootElement = document.getElementById("root");
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Splash />,
+  },
+  {
+    path: "/home",
+    element: <SceneHome />,
   },
 ]);
 
