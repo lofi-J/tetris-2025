@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./global.css";
 import SceneHome from "./scene/scene-home.tsx";
-import Splash from "./splash.tsx";
 
 const rootElement = document.getElementById("root");
 
@@ -14,11 +13,11 @@ if (!rootElement) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Splash />,
+    element: <SceneHome />,
   },
   {
-    path: "/home",
-    element: <SceneHome />,
+    path: "/game",
+    element: <>game</>,
   },
 ]);
 
