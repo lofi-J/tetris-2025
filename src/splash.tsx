@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "./assets/tetris-2025-splash.png";
+import logo from "./assets/frieren_javascript.jpg";
 
 function Splash() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function Splash() {
       <img
         src={logo}
         alt="splash image"
-        className="w-full h-full object-contain"
+        className="aspect-auto object-contain"
       />
     </main>
   );
