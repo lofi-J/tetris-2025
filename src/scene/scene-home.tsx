@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function SceneHome() {
   return (
     <div className="min-h-screen min-w-screen select-none">
@@ -6,6 +8,14 @@ export default function SceneHome() {
         <h2 className="text-xl font-semibold mt-4 font-silkscreen">
           Programming language
         </h2>
+
+        {/* select theme */}
+        <div></div>
+
+        {/* Start Button */}
+        <Link to="/game" className="bg-transparent mt-[80px]">
+          <button type="button">Start Game</button>
+        </Link>
       </div>
     </div>
   );

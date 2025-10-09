@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ThemeProvider from "./context/theme-provider.tsx";
 import "./global.css";
 import SceneHome from "./scene/scene-home.tsx";
 
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
 
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    <ThemeProvider>
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    </ThemeProvider>
   </StrictMode>,
 );
