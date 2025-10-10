@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-type ProgrammingLanguage =
+export type ProgrammingLanguage =
   | "javascript"
   | "typescript"
   | "python"
