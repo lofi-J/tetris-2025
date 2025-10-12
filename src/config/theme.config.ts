@@ -10,4 +10,4 @@ type ThemeDesign = {
 
 export type ThemeConfig = { name: ProgrammingLanguage; config: ThemeDesign };
 
-export const themeConfig = {}; // TODO
+export const themeConfig = {};
