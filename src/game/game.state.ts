@@ -1,9 +1,11 @@
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./game.constant";
 import type { GameAction, GameState } from "./game.type";
 import {
+  createRenderBoard,
   getRandomTetromino,
   hardDrop,
   isColliding,
+  Queue,
   rotateTetromino,
 } from "./game.util";
 
@@ -16,7 +18,7 @@ export const initialState: GameState = {
     Array.from({ length: BOARD_WIDTH }, () => 0),
   ),
   tetromino: [],
-  nextTetrominos: [],
+  nextTetrominos: new Queue(),
   position: initialPos,
   score: 0,
   level: 1,
@@ -25,19 +27,28 @@ export const initialState: GameState = {
 export const gameReducer = (state: GameState, action: GameAction) => {
   const { board, tetromino, position } = state;
 
+  // generate new tetromino in queue
+  const addTetrominoToQueue = () => {
+    state.nextTetrominos.enqueue(getRandomTetromino());
+  };
+
+  const getDequeuedAction = (state: GameState): GameState => {
+    const { board, tetromino, position } = state;
+
+    return {
+      ...state,
+      tetromino: state.nextTetrominos.dequeue(), // get new tetromino from queue
+      position: initialPos, // reset position
+      board: createRenderBoard(board, tetromino, position),
+    };
+  };
+
   switch (action.type) {
     case "START_GAME":
       return {
         ...state,
         isGameStarted: true,
-        tetromino: getRandomTetromino(),
-        nextTetrominos: [
-          getRandomTetromino(),
-          getRandomTetromino(),
-          getRandomTetromino(),
-          getRandomTetromino(),
-          getRandomTetromino(),
-        ],
+        tetromino: state.nextTetrominos.dequeue(),
       };
 
     case "MOVE_LEFT":
@@ -62,7 +73,9 @@ export const gameReducer = (state: GameState, action: GameAction) => {
 
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
-        return { ...state };
+        addTetrominoToQueue();
+
+        return getDequeuedAction(state);
       }
 
       return {
@@ -80,7 +93,13 @@ export const gameReducer = (state: GameState, action: GameAction) => {
     }
 
     case "HARD_DROP": {
-      return { ...state, position: hardDrop(board, tetromino, position) };
+      addTetrominoToQueue();
+      const newState: GameState = {
+        ...state,
+        position: hardDrop(board, tetromino, position),
+      };
+
+      return getDequeuedAction(newState);
     }
   }
 };

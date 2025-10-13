@@ -1,3 +1,5 @@
+import type { Queue } from "./game.util";
+
 export type CellValue = number;
 export type Board = CellValue[][];
 
@@ -13,7 +15,7 @@ export type GameState = {
   isGameOver: boolean;
   board: Board;
   tetromino: Tetromino;
-  nextTetrominos: Tetromino[];
+  nextTetrominos: Queue;
   position: Position;
   score: number;
   level: number;

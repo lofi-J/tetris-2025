@@ -69,7 +69,7 @@ export default function SceneGame() {
           <div className="flex flex-col gap-2">
             <strong className="text-lg font-semibold mb-2">Next</strong>
             <div className="border border-white flex flex-col gap-2">
-              {state.nextTetrominos.map((tetromino, index) => (
+              {state.nextTetrominos.peekAll().map((tetromino, index) => (
                 <Preview key={`next-${index}`} tetromino={tetromino} />
               ))}
             </div>

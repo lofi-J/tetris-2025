@@ -85,7 +85,7 @@ export const hardDrop = (
   tetromino: Tetromino,
   position: Position,
 ): Position => {
-  const howManyTimesCanBeDropped = calculateHowManyTimesCanBeDropped(
+  const howManyTimesCanBeDropped = HowManyTimesCanBeDropped(
     board,
     tetromino,
     position,
@@ -94,7 +94,7 @@ export const hardDrop = (
   return { ...position, y: position.y + howManyTimesCanBeDropped };
 };
 
-const calculateHowManyTimesCanBeDropped = (
+const HowManyTimesCanBeDropped = (
   board: Board,
   tetromino: Tetromino,
   position: Position,
@@ -111,3 +111,44 @@ const calculateHowManyTimesCanBeDropped = (
 
   return count - 1; // because the add one in the while loop before break
 };
+
+export class Queue {
+  private items: Tetromino[];
+
+  // generate 3 random tetrominos at init
+  constructor() {
+    this.items = [
+      getRandomTetromino(),
+      getRandomTetromino(),
+      getRandomTetromino(),
+    ];
+  }
+
+  enqueue(item: Tetromino) {
+    this.items.push(item);
+  }
+
+  dequeue(): Tetromino {
+    if (this.isEmpty()) {
+      throw new Error("Tetromino Queue is Empty, it's should not happen");
+    }
+
+    return this.items.shift() as Tetromino;
+  }
+
+  peek() {
+    return structuredClone(this.items[0]);
+  }
+
+  peekAll() {
+    return structuredClone(this.items);
+  }
+
+  isEmpty() {
+    return this.items.length === 0;
+  }
+
+  size() {
+    return this.items.length;
+  }
+}
