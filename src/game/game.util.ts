@@ -1,7 +1,7 @@
 import { BOARD_HEIGHT, BOARD_WIDTH, TETROMINOS } from "./game.constant";
 import type { Board, Position, Tetromino } from "./game.type";
 
-export const getRandomTetromino = () => {
+export const getRandomTetromino = (): Tetromino => {
   const randomIndex = Math.floor(Math.random() * TETROMINOS.length);
   return TETROMINOS[randomIndex];
 };
@@ -10,7 +10,7 @@ export const createRenderBoard = (
   board: Board,
   tetromino: Tetromino,
   position: Position,
-) => {
+): Board => {
   const renderBoard = structuredClone(board);
 
   if (!tetromino) return renderBoard;
@@ -33,7 +33,7 @@ export const isColliding = (
   board: Board,
   tetromino: Tetromino,
   position: Position,
-) => {
+): boolean => {
   if (!tetromino) return false;
 
   for (let y = 0; y < tetromino.length; y++) {
@@ -59,9 +59,11 @@ export const isColliding = (
       }
     }
   }
+
+  return false;
 };
 
-export const rotateTetromino = (tetromino: Tetromino) => {
+export const rotateTetromino = (tetromino: Tetromino): Tetromino => {
   const rows = tetromino.length;
   const cols = tetromino[0].length;
 
@@ -76,4 +78,36 @@ export const rotateTetromino = (tetromino: Tetromino) => {
   }
 
   return rotatedTetromino;
+};
+
+export const hardDrop = (
+  board: Board,
+  tetromino: Tetromino,
+  position: Position,
+): Position => {
+  const howManyTimesCanBeDropped = calculateHowManyTimesCanBeDropped(
+    board,
+    tetromino,
+    position,
+  );
+
+  return { ...position, y: position.y + howManyTimesCanBeDropped };
+};
+
+const calculateHowManyTimesCanBeDropped = (
+  board: Board,
+  tetromino: Tetromino,
+  position: Position,
+): number => {
+  let count = 0;
+
+  while (true) {
+    if (
+      isColliding(board, tetromino, { ...position, y: position.y + ++count })
+    ) {
+      break;
+    }
+  }
+
+  return count - 1; // because the add one in the while loop before break
 };

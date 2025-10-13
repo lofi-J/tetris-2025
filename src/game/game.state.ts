@@ -1,6 +1,11 @@
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./game.constant";
 import type { GameAction, GameState } from "./game.type";
-import { getRandomTetromino, isColliding, rotateTetromino } from "./game.util";
+import {
+  getRandomTetromino,
+  hardDrop,
+  isColliding,
+  rotateTetromino,
+} from "./game.util";
 
 const initialPos = { x: 4, y: 0 };
 
@@ -19,6 +24,7 @@ export const initialState: GameState = {
 
 export const gameReducer = (state: GameState, action: GameAction) => {
   const { board, tetromino, position } = state;
+
   switch (action.type) {
     case "START_GAME":
       return {
@@ -33,6 +39,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
           getRandomTetromino(),
         ],
       };
+
     case "MOVE_LEFT":
       if (isColliding(board, tetromino, { ...position, x: position.x - 1 })) {
         return { ...state };
@@ -42,6 +49,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
         ...state,
         position: { ...state.position, x: state.position.x - 1 },
       };
+
     case "MOVE_RIGHT":
       if (isColliding(board, tetromino, { ...position, x: position.x + 1 })) {
         return { ...state };
@@ -51,6 +59,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
         ...state,
         position: { ...state.position, x: state.position.x + 1 },
       };
+
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
         return { ...state };
@@ -60,6 +69,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
         ...state,
         position: { ...state.position, y: state.position.y + 1 },
       };
+
     case "ROTATE": {
       const rotatedTetromino = rotateTetromino(tetromino);
       if (isColliding(board, rotatedTetromino, position)) {
@@ -67,6 +77,10 @@ export const gameReducer = (state: GameState, action: GameAction) => {
       }
 
       return { ...state, tetromino: rotatedTetromino };
+    }
+
+    case "HARD_DROP": {
+      return { ...state, position: hardDrop(board, tetromino, position) };
     }
   }
 };

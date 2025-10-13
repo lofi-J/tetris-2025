@@ -24,8 +24,8 @@ export type GameAction =
   | { type: "MOVE_LEFT" }
   | { type: "MOVE_RIGHT" }
   | { type: "MOVE_DOWN" }
-  | { type: "ROTATE" };
-// | { type: 'HARD_DROP'}
+  | { type: "ROTATE" }
+  | { type: "HARD_DROP" };
 // | { type: 'HOLD'}
 // | { type: 'PAUSE'}
 // | { type: 'RESUME'}
