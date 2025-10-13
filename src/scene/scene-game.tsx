@@ -3,12 +3,15 @@ import { BoardComponent } from "../components/board/board";
 import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
 import { gameReducer, initialState } from "../game/game.state";
+import { createRenderBoard } from "../game/game.util";
 
 export default function SceneGame() {
   const { theme } = useTheme();
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
+    if (!state.isGameStarted) return;
+
     const level = state.level;
     const dropSpeed = 1000 - level * 100;
 
@@ -17,10 +20,29 @@ export default function SceneGame() {
     }, dropSpeed);
 
     return () => clearInterval(interval);
-  }, [state.level]);
+  }, [state.level, state.isGameStarted]);
 
   useEffect(() => {
     dispatch({ type: "START_GAME" });
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "ArrowLeft":
+          dispatch({ type: "MOVE_LEFT" });
+          break;
+        case "ArrowRight":
+          dispatch({ type: "MOVE_RIGHT" });
+          break;
+        case "ArrowDown":
+          dispatch({ type: "MOVE_DOWN" });
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   if (!state.isGameStarted) return <>loading...</>;
@@ -30,9 +52,16 @@ export default function SceneGame() {
       <div className="flex flex-col justify-center items-center h-full gap-4">
         <h1 className="text-2xl font-bold">{theme}</h1>
         <div className="flex gap-8 items-start">
-          <BoardComponent board={state.board} theme={theme} />
+          <BoardComponent
+            board={createRenderBoard(
+              state.board,
+              state.tetromino,
+              state.position,
+            )}
+            theme={theme}
+          />
           <div className="flex flex-col gap-2">
-            <h2 className="text-lg font-semibold mb-2">Next</h2>
+            <strong className="text-lg font-semibold mb-2">Next</strong>
             <div className="border border-white flex flex-col gap-2">
               {state.nextTetrominos.map((tetromino, index) => (
                 <Preview key={`next-${index}`} tetromino={tetromino} />
