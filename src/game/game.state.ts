@@ -43,6 +43,15 @@ export const gameReducer = (state: GameState, action: GameAction) => {
     };
   };
 
+  const checkGameOver = (state: GameState): boolean => {
+    const { board, tetromino, position } = state;
+
+    if (position.y <= 1 && isColliding(board, tetromino, position)) {
+      return true;
+    }
+    return false;
+  };
+
   switch (action.type) {
     case "START_GAME":
       return {
@@ -73,6 +82,10 @@ export const gameReducer = (state: GameState, action: GameAction) => {
 
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
+        if (checkGameOver(state)) {
+          return { ...state, isGameOver: true };
+        }
+
         addTetrominoToQueue();
 
         return getDequeuedAction(state);
@@ -93,6 +106,10 @@ export const gameReducer = (state: GameState, action: GameAction) => {
     }
 
     case "HARD_DROP": {
+      if (checkGameOver(state)) {
+        return { ...state, isGameOver: true };
+      }
+
       addTetrominoToQueue();
       const newState: GameState = {
         ...state,

@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import { BoardComponent } from "../components/board/board";
 import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
@@ -7,6 +8,7 @@ import { createRenderBoard } from "../game/game.util";
 
 export default function SceneGame() {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
@@ -52,6 +54,10 @@ export default function SceneGame() {
   }, []);
 
   if (!state.isGameStarted) return <>loading...</>;
+
+  if (state.isGameOver) {
+    navigate("/game-over");
+  }
 
   return (
     <div className="w-screen h-screen">

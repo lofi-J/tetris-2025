@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ThemeProvider from "./context/theme-provider.tsx";
 import "./global.css";
 import SceneGame from "./scene/scene-game.tsx";
+import SceneGameOver from "./scene/scene-game-over.tsx";
 import SceneHome from "./scene/scene-home.tsx";
 
 const rootElement = document.getElementById("root");
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/game",
     element: <SceneGame />,
+  },
+  {
+    path: "/game-over",
+    element: <SceneGameOver />,
   },
 ]);
 
