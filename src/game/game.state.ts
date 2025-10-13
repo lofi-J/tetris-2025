@@ -27,13 +27,10 @@ export const initialState: GameState = {
 export const gameReducer = (state: GameState, action: GameAction) => {
   const { board, tetromino, position } = state;
 
-  // generate new tetromino in queue
-  const addTetrominoToQueue = () => {
-    state.nextTetrominos.enqueue(getRandomTetromino());
-  };
-
   const getDequeuedAction = (state: GameState): GameState => {
     const { board, tetromino, position } = state;
+
+    state.nextTetrominos.enqueue(getRandomTetromino());
 
     return {
       ...state,
@@ -86,8 +83,6 @@ export const gameReducer = (state: GameState, action: GameAction) => {
           return { ...state, isGameOver: true };
         }
 
-        addTetrominoToQueue();
-
         return getDequeuedAction(state);
       }
 
@@ -110,7 +105,6 @@ export const gameReducer = (state: GameState, action: GameAction) => {
         return { ...state, isGameOver: true };
       }
 
-      addTetrominoToQueue();
       const newState: GameState = {
         ...state,
         position: hardDrop(board, tetromino, position),
