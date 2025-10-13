@@ -4,8 +4,8 @@ export default function SceneGameOver() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const level = stateIsNumber(state.level) ? state.level : 0;
-  const score = stateIsNumber(state.score) ? state.score : 0;
+  const level = typeof state.level === "number" ? state.level : 0;
+  const score = typeof state.score === "number" ? state.score : 0;
 
   const handlePlayAgain = () => {
     navigate("/game");
@@ -26,7 +26,3 @@ export default function SceneGameOver() {
     </div>
   );
 }
-
-const stateIsNumber = (value: unknown): value is number => {
-  return typeof value === "number";
-};
