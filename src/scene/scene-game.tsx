@@ -75,11 +75,14 @@ export default function SceneGame() {
   if (!state.isGameStarted) return <>loading...</>;
 
   if (state.isGameOver) {
-    navigate("/game-over", {
-      state: {
-        level: state.level,
-        score: state.score,
-      },
+    // what the hell
+    setTimeout(() => {
+      navigate("/game-over", {
+        state: {
+          level: state.level,
+          score: state.score,
+        },
+      });
     });
   }
 
