@@ -28,6 +28,25 @@ export default function SceneGame() {
     return () => clearInterval(interval);
   }, [state.level, state.isGameStarted]);
 
+  // increase level
+  useEffect(() => {
+    if (state.score >= 3000 && state.level === 1) {
+      dispatch({ type: "INCREASE_LEVEL" });
+    }
+    if (state.score >= 10000 && state.level === 2) {
+      dispatch({ type: "INCREASE_LEVEL" });
+    }
+    if (state.score >= 15000 && state.level === 3) {
+      dispatch({ type: "INCREASE_LEVEL" });
+    }
+    if (state.score >= 20000 && state.level === 4) {
+      dispatch({ type: "INCREASE_LEVEL" });
+    }
+    if (state.score >= 25000 && state.level === 5) {
+      dispatch({ type: "INCREASE_LEVEL" });
+    }
+  }, [state.score, state.level]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -77,6 +96,7 @@ export default function SceneGame() {
             )}
             theme={theme}
           />
+          {/* Next Tetromino */}
           <div className="flex flex-col gap-2">
             <strong className="text-lg font-semibold mb-2">Next</strong>
             <div className="border border-white flex flex-col gap-2">
@@ -84,6 +104,18 @@ export default function SceneGame() {
                 <Preview key={`next-${index}`} tetromino={tetromino} />
               ))}
             </div>
+          </div>
+
+          {/* Score */}
+          <div className="flex flex-col gap-2">
+            <strong className="text-lg font-semibold mb-2">Score</strong>
+            <p className="text-lg font-semibold">{state.score}</p>
+          </div>
+
+          {/* Level */}
+          <div className="flex flex-col gap-2">
+            <strong className="text-lg font-semibold mb-2">Level</strong>
+            <p className="text-lg font-semibold">{state.level}</p>
           </div>
         </div>
       </div>

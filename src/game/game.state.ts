@@ -1,5 +1,5 @@
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./game.constant";
-import type { GameAction, GameState } from "./game.type";
+import type { Board, GameAction, GameState } from "./game.type";
 import {
   checkRowIsFull,
   clearLine,
@@ -29,7 +29,7 @@ export const initialState: GameState = {
 export const gameReducer = (state: GameState, action: GameAction) => {
   const { board, tetromino, position } = state;
 
-  // call drop and hard drop
+  // will be called by drop and hard drop
   const getDequeuedAction = (state: GameState): GameState => {
     const { board, tetromino, position } = state;
 
@@ -38,10 +38,15 @@ export const gameReducer = (state: GameState, action: GameAction) => {
 
     // 2. full row check and remove
     const rowIndices = checkRowIsFull(board, tetromino, position);
-    const clearedBoard =
-      rowIndices.length > 0 ? clearLine(mergedBoard, rowIndices) : mergedBoard;
 
-    // 3. add new tetromino to queue and get new tetromino from queue
+    // 3. add score and drop line index
+    let clearedBoard: Board = mergedBoard;
+    if (rowIndices.length > 0) {
+      state.score += rowIndices.length * 100; // 100 points by one line TODO: consider level
+      clearedBoard = clearLine(mergedBoard, rowIndices);
+    }
+
+    // 4. add new tetromino to queue and get new tetromino from queue
     state.nextTetrominos.enqueue(getRandomTetromino());
 
     return {
@@ -123,6 +128,10 @@ export const gameReducer = (state: GameState, action: GameAction) => {
       };
 
       return getDequeuedAction(newState);
+    }
+
+    case "INCREASE_LEVEL": {
+      return { ...state, level: state.level + 1 };
     }
   }
 };
