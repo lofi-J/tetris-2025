@@ -60,3 +60,20 @@ export const isColliding = (
     }
   }
 };
+
+export const rotateTetromino = (tetromino: Tetromino) => {
+  const rows = tetromino.length;
+  const cols = tetromino[0].length;
+
+  const rotatedTetromino: Tetromino = Array(cols)
+    .fill(null)
+    .map(() => Array(rows).fill(0));
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      rotatedTetromino[col][rows - 1 - row] = tetromino[row][col];
+    }
+  }
+
+  return rotatedTetromino;
+};

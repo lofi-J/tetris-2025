@@ -1,6 +1,6 @@
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./game.constant";
 import type { GameAction, GameState } from "./game.type";
-import { getRandomTetromino, isColliding } from "./game.util";
+import { getRandomTetromino, isColliding, rotateTetromino } from "./game.util";
 
 const initialPos = { x: 4, y: 0 };
 
@@ -35,7 +35,6 @@ export const gameReducer = (state: GameState, action: GameAction) => {
       };
     case "MOVE_LEFT":
       if (isColliding(board, tetromino, { ...position, x: position.x - 1 })) {
-        console.log("colliding left");
         return { ...state };
       }
 
@@ -45,7 +44,6 @@ export const gameReducer = (state: GameState, action: GameAction) => {
       };
     case "MOVE_RIGHT":
       if (isColliding(board, tetromino, { ...position, x: position.x + 1 })) {
-        console.log("colliding right");
         return { ...state };
       }
 
@@ -55,7 +53,6 @@ export const gameReducer = (state: GameState, action: GameAction) => {
       };
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
-        console.log("colliding down");
         return { ...state };
       }
 
@@ -63,5 +60,13 @@ export const gameReducer = (state: GameState, action: GameAction) => {
         ...state,
         position: { ...state.position, y: state.position.y + 1 },
       };
+    case "ROTATE": {
+      const rotatedTetromino = rotateTetromino(tetromino);
+      if (isColliding(board, rotatedTetromino, position)) {
+        return { ...state };
+      }
+
+      return { ...state, tetromino: rotatedTetromino };
+    }
   }
 };

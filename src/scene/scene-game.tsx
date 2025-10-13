@@ -9,18 +9,18 @@ export default function SceneGame() {
   const { theme } = useTheme();
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
-  useEffect(() => {
-    if (!state.isGameStarted) return;
+  // useEffect(() => {
+  //   if (!state.isGameStarted) return;
 
-    const level = state.level;
-    const dropSpeed = 1000 - level * 100;
+  //   const level = state.level;
+  //   const dropSpeed = 1000 - level * 100;
 
-    const interval = setInterval(() => {
-      dispatch({ type: "MOVE_DOWN" });
-    }, dropSpeed);
+  //   const interval = setInterval(() => {
+  //     dispatch({ type: "MOVE_DOWN" });
+  //   }, dropSpeed);
 
-    return () => clearInterval(interval);
-  }, [state.level, state.isGameStarted]);
+  //   return () => clearInterval(interval);
+  // }, [state.level, state.isGameStarted]);
 
   useEffect(() => {
     dispatch({ type: "START_GAME" });
@@ -37,6 +37,9 @@ export default function SceneGame() {
           break;
         case "ArrowDown":
           dispatch({ type: "MOVE_DOWN" });
+          break;
+        case "ArrowUp":
+          dispatch({ type: "ROTATE" });
           break;
       }
     };
