@@ -12,6 +12,10 @@ export default function SceneGame() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
+    dispatch({ type: "START_GAME" });
+  }, []);
+
+  useEffect(() => {
     if (!state.isGameStarted) return;
 
     const level = state.level;
@@ -23,10 +27,6 @@ export default function SceneGame() {
 
     return () => clearInterval(interval);
   }, [state.level, state.isGameStarted]);
-
-  useEffect(() => {
-    dispatch({ type: "START_GAME" });
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +43,7 @@ export default function SceneGame() {
         case "ArrowUp":
           dispatch({ type: "ROTATE" });
           break;
-        case " ":
+        case " ": // spacebar
           dispatch({ type: "HARD_DROP" });
           break;
       }

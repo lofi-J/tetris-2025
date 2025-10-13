@@ -112,6 +112,46 @@ const HowManyTimesCanBeDropped = (
   return count - 1; // because the add one in the while loop before break
 };
 
+export const checkRowIsFull = (
+  board: Board,
+  tetromino: Tetromino,
+  position: Position,
+): number[] => {
+  // create a temporary board with the tetromino
+  const tempBoard = createRenderBoard(board, tetromino, position);
+  const rowsToCheck = new Set<number>();
+
+  for (let y = 0; y < tetromino.length; y++) {
+    for (let x = 0; x < tetromino[y].length; x++) {
+      if (tetromino[y][x] === 1) {
+        const rowIndex = position.y + y;
+        rowsToCheck.add(rowIndex);
+      }
+    }
+  }
+
+  const fullRowIndices: number[] = [];
+  for (const rowIndex of rowsToCheck) {
+    if (tempBoard[rowIndex].every((cell) => cell === 1)) {
+      fullRowIndices.push(rowIndex);
+    }
+  }
+
+  return fullRowIndices;
+};
+
+export const clearLine = (board: Board, rowIndices: number[]): Board => {
+  const newBoard = structuredClone(board);
+  const sortedIndices = [...rowIndices].sort((a, b) => b - a);
+
+  for (const rowIndex of sortedIndices) {
+    newBoard.splice(rowIndex, 1);
+    newBoard.unshift(Array(BOARD_WIDTH).fill(0));
+  }
+
+  return newBoard;
+};
+
 export class Queue {
   private items: Tetromino[];
 

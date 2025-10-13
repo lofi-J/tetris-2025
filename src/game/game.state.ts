@@ -1,6 +1,8 @@
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./game.constant";
 import type { GameAction, GameState } from "./game.type";
 import {
+  checkRowIsFull,
+  clearLine,
   createRenderBoard,
   getRandomTetromino,
   hardDrop,
@@ -27,16 +29,26 @@ export const initialState: GameState = {
 export const gameReducer = (state: GameState, action: GameAction) => {
   const { board, tetromino, position } = state;
 
+  // call drop and hard drop
   const getDequeuedAction = (state: GameState): GameState => {
     const { board, tetromino, position } = state;
 
+    // 1. tetromino to board
+    const mergedBoard = createRenderBoard(board, tetromino, position);
+
+    // 2. full row check and remove
+    const rowIndices = checkRowIsFull(board, tetromino, position);
+    const clearedBoard =
+      rowIndices.length > 0 ? clearLine(mergedBoard, rowIndices) : mergedBoard;
+
+    // 3. add new tetromino to queue and get new tetromino from queue
     state.nextTetrominos.enqueue(getRandomTetromino());
 
     return {
       ...state,
+      board: clearedBoard,
       tetromino: state.nextTetrominos.dequeue(), // get new tetromino from queue
       position: initialPos, // reset position
-      board: createRenderBoard(board, tetromino, position),
     };
   };
 

@@ -28,7 +28,7 @@ export type GameAction =
   | { type: "MOVE_DOWN" }
   | { type: "ROTATE" }
   | { type: "HARD_DROP" };
+
 // | { type: 'HOLD'}
 // | { type: 'PAUSE'}
 // | { type: 'RESUME'}
-// | { type: 'RESET'}
