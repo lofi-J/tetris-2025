@@ -12,38 +12,7 @@
 
 - Biome v2.2.2
 
-### biome.json
+# TODOs
 
-```json
-{
-  "files": {
-    "ignoreUnknown": true,
-    "ignore": ["node_modules"]
-  },
-
-  "organizeImports": {
-    "enabled": true
-  },
-
-  "formatter": {
-  "enabled": true,
-    "formatWithErrors": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "trimTrailingWhitespace": true,
-    "wrapLength": 120,
-    "attributePosition": "auto"
-  },
-
-  "linter": {
-    "recommended": true,
-    "complexity": {
-      "noVoid": "error"
-    },
-    "correctness": {
-      "noUnusedImports": "error"
-    }
-  }
-}
-```
+1. topbar 디자인
+2. Board, Preview Theme별 디자인
