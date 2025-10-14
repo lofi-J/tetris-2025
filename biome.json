@@ -8,7 +8,6 @@
     "actions": {
       "source": {
         "organizeImports": {
-          "level": "on",
           "options": {
             "identifierOrder": "natural"
           }

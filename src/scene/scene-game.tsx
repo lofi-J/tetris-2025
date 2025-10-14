@@ -15,12 +15,12 @@ export default function SceneGame() {
   const gameStatus = state.status;
   const setDispatch = useGameStatusStore((state) => state.setDispatch);
 
-  // dispatch를 Zustand에 저장
+  // setDispatch for topbar
   useEffect(() => {
     setDispatch(dispatch);
   }, [setDispatch]);
 
-  // Reducer → Zustand 단방향 동기화
+  // Reducer → Zustand 단방향 동기화 (동기화의 필요성: setDispatch를 통한 state변경으로 store 의 status가 변경되지 않기 때문)
   useEffect(() => {
     useGameStatusStore.setState({ status: gameStatus });
   }, [gameStatus]);
