@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type ProgrammingLanguage =
   | "javascript"
@@ -24,6 +24,11 @@ interface ThemeProviderProps {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ProgrammingLanguage>("javascript");
+
+  useEffect(() => {
+    console.log("selected theme:", theme);
+  }, [theme]);
+
   return (
     <ThemeContext.Provider value={{ theme: theme, setTheme }}>
       {children}

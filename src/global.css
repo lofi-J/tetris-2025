@@ -3,12 +3,26 @@
 @theme {
   --font-silkscreen: "Silkscreen", sans-serif;
   --font-inter: "Inter", sans-serif;
+
+  --color-theme-foreground: var(--theme-color-foreground);
+  --color-theme-background: var(--theme-color-background);
+  --color-theme-accent: var(--theme-color-accent);
+  --color-theme-board: var(--theme-color-board);
+  --color-theme-cell: var(--theme-color-cell);
 }
 
 @layer component {
   .cell-size {
     @apply w-7 h-7;
   }
+}
+
+:root {
+  --theme-color-foreground: #fff;
+  --theme-color-background: #000;
+  --theme-color-accent: #ff0000;
+  --theme-color-board: #ff0000;
+  --theme-color-cell: #ff0000;
 }
 
 :root {
@@ -24,6 +38,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--theme-color-background);
+  color: var(--theme-color-foreground);
 }
 
 a {

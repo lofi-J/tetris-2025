@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import Scene from "./scene";
 
 export default function SceneGameOver() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function SceneGameOver() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen select-none">
+    <Scene>
       <h1 className="text-[50px] font-extrabold text-white">GAME OVER</h1>
       <p className="text-xl font-semibold mt-4 font-silkscreen">
         Level: {level}
@@ -23,6 +24,6 @@ export default function SceneGameOver() {
       <button type="button" onClick={handlePlayAgain}>
         Play Again
       </button>
-    </div>
+    </Scene>
   );
 }

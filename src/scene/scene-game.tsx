@@ -5,6 +5,9 @@ import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
 import { gameReducer, initialState } from "../game/game.state";
 import { createRenderBoard } from "../game/game.util";
+import Scene from "./scene";
+
+
 
 export default function SceneGame() {
   const { theme } = useTheme();
@@ -87,7 +90,7 @@ export default function SceneGame() {
   }
 
   return (
-    <div className="w-screen h-screen">
+    <Scene>
       <div className="flex flex-col justify-center items-center h-full gap-4">
         <h1 className="text-2xl font-bold">{theme}</h1>
         <div className="flex gap-8 items-start">
@@ -122,6 +125,6 @@ export default function SceneGame() {
           </div>
         </div>
       </div>
-    </div>
+    </Scene>
   );
 }
