@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import PauseIcon from "../assets/pause.svg?react";
 import PlayIcon from "../assets/play.svg?react";
 import { useGameStatusStore } from "../game/game-status.store";
 import { Button } from "./button";
@@ -38,7 +39,7 @@ export const Topbar = () => {
           </Button>
         ) : (
           <Button type="button" onClick={togglePlayPause}>
-            {status === "playing" ? "Pause" : "Resume"}
+            {status === "playing" ? <PauseIcon /> : <PlayIcon />}
           </Button>
         )}
       </div>
