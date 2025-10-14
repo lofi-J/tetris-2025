@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BoardComponent } from "../components/board/board";
 import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
+import { useGameStatusStore } from "../game/game-status.store";
 import { gameReducer, initialState } from "../game/game.state";
 import { createRenderBoard } from "../game/game.util";
 import Scene from "./scene";
@@ -12,10 +13,17 @@ export default function SceneGame() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const gameStatus = state.status;
+  const setDispatch = useGameStatusStore((state) => state.setDispatch);
 
+  // dispatch를 Zustand에 저장
   useEffect(() => {
-    dispatch({ type: "SET_STATUS", status: "playing" });
-  }, []);
+    setDispatch(dispatch);
+  }, [setDispatch]);
+
+  // Reducer → Zustand 단방향 동기화
+  useEffect(() => {
+    useGameStatusStore.setState({ status: gameStatus });
+  }, [gameStatus]);
 
   useEffect(() => {
     if (gameStatus !== "playing") return;
