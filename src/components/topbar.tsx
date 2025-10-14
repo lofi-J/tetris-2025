@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Topbar = () => {
   const navigate = useNavigate();
-
+  // const gameState = useGameStateStore();
   const goHome = () => navigate("/");
 
   return (
@@ -11,7 +11,7 @@ export const Topbar = () => {
         <button type="button" onClick={goHome}>
           Home
         </button>
-        {/* <PlayButton /> */}
+        {/* <PlayButton gameState={gameState} /> */}
       </div>
     </header>
   );

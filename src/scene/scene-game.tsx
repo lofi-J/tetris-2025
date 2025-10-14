@@ -7,19 +7,18 @@ import { gameReducer, initialState } from "../game/game.state";
 import { createRenderBoard } from "../game/game.util";
 import Scene from "./scene";
 
-
-
 export default function SceneGame() {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(gameReducer, initialState);
+  const gameStatus = state.status;
 
   useEffect(() => {
-    dispatch({ type: "START_GAME" });
+    dispatch({ type: "SET_STATUS", status: "playing" });
   }, []);
 
   useEffect(() => {
-    if (!state.isGameStarted) return;
+    if (gameStatus !== "playing") return;
 
     const level = state.level;
     const dropSpeed = 1000 - level * 100;
@@ -29,7 +28,7 @@ export default function SceneGame() {
     }, dropSpeed);
 
     return () => clearInterval(interval);
-  }, [state.level, state.isGameStarted]);
+  }, [state.level, gameStatus]);
 
   // increase level
   useEffect(() => {
@@ -75,9 +74,7 @@ export default function SceneGame() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  if (!state.isGameStarted) return <>loading...</>;
-
-  if (state.isGameOver) {
+  if (gameStatus === "gameover") {
     // what the hell
     setTimeout(() => {
       navigate("/game-over", {

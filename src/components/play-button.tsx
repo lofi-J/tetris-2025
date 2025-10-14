@@ -1,16 +1,23 @@
 import { useLocation } from "react-router-dom";
+import type { GameStateStore } from "../scene/scene-game";
 
 type PlayButtonProps = {
-  onClick: () => void;
+  gameState: GameStateStore;
 };
 
-export const PlayButton = ({ onClick }: PlayButtonProps) => {
+export const PlayButton = ({ gameState }: PlayButtonProps) => {
   const pathname = useLocation();
   const isGamePage = pathname.pathname === "/game";
 
+  const handleClick = () => {
+    if (gameState.isGameStarted) {
+      gameState.setIsGameStarted(false);
+    }
+  };
+
   return (
-    <button type="button" onClick={onClick} disabled={!isGamePage}>
-      {/* {state.isGameStarted ? "Pause" : "Play"} */}
+    <button type="button" onClick={handleClick} disabled={!isGamePage}>
+      {gameState.isGameStarted ? "Pause" : "Play"}
     </button>
   );
 };

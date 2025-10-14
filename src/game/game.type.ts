@@ -10,9 +10,10 @@ export type Position = {
 
 export type Tetromino = number[][];
 
+export type Status = "idle" | "playing" | "paused" | "gameover";
+
 export type GameState = {
-  isGameStarted: boolean;
-  isGameOver: boolean;
+  status: Status;
   board: Board;
   tetromino: Tetromino;
   nextTetrominos: Queue;
@@ -22,7 +23,7 @@ export type GameState = {
 };
 
 export type GameAction =
-  | { type: "START_GAME" }
+  | { type: "SET_STATUS"; status: Status }
   | { type: "MOVE_LEFT" }
   | { type: "MOVE_RIGHT" }
   | { type: "MOVE_DOWN" }

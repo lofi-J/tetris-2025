@@ -14,8 +14,7 @@ import {
 const initialPos = { x: 4, y: 0 };
 
 export const initialState: GameState = {
-  isGameStarted: false,
-  isGameOver: false,
+  status: "idle",
   board: Array.from({ length: BOARD_HEIGHT }, () =>
     Array.from({ length: BOARD_WIDTH }, () => 0),
   ),
@@ -26,7 +25,10 @@ export const initialState: GameState = {
   level: 1,
 };
 
-export const gameReducer = (state: GameState, action: GameAction) => {
+export const gameReducer = (
+  state: GameState,
+  action: GameAction,
+): GameState => {
   const { board, tetromino, position } = state;
 
   // will be called by drop and hard drop
@@ -67,10 +69,10 @@ export const gameReducer = (state: GameState, action: GameAction) => {
   };
 
   switch (action.type) {
-    case "START_GAME":
+    case "SET_STATUS":
       return {
         ...state,
-        isGameStarted: true,
+        status: action.status,
         tetromino: state.nextTetrominos.dequeue(),
       };
 
@@ -97,7 +99,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
         if (checkGameOver(state)) {
-          return { ...state, isGameOver: true };
+          return { ...state, status: "gameover" };
         }
 
         return getDequeuedAction(state);
@@ -119,7 +121,7 @@ export const gameReducer = (state: GameState, action: GameAction) => {
 
     case "HARD_DROP": {
       if (checkGameOver(state)) {
-        return { ...state, isGameOver: true };
+        return { ...state, status: "gameover" };
       }
 
       const newState: GameState = {
