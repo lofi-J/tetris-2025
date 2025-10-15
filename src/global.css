@@ -15,6 +15,12 @@
   .cell-size {
     @apply w-7 h-7;
   }
+  .loading-block {
+    @apply absolute border border-theme-foreground transition-all duration-500;
+  }
+  .force-cubic-bezier {
+    animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  }
 }
 
 :root {
@@ -87,5 +93,14 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@keyframes block-loading-animation {
+  0% {
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  100% {
+    animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 }

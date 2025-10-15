@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Loading } from "./components/loading.tsx";
 import ThemeProvider from "./context/theme-provider.tsx";
 import "./global.css";
 import SceneGameOver from "./scene/scene-game-over.tsx";
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/game-over",
     element: <SceneGameOver />,
+  },
+  {
+    path: "/loading",
+    element: (
+      <div className="min-h-screen min-w-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    ),
   },
 ]);
 
