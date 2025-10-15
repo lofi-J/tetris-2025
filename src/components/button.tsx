@@ -13,7 +13,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const classes = clsx("", {
-    "bg-red-500": variant === "secondary",
+    "": variant === "secondary",
     "bg-transparent": variant === "transparent",
     "bg-transparent text-[color-mix(in srgb, var(--color-theme-foreground) 50%, transparent)] hover:text-[var(--color-theme-foreground)]":
       variant === "link",

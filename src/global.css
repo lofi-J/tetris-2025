@@ -10,6 +10,14 @@
   --color-theme-accent-1: var(--theme-color-accent-1);
   --color-theme-board: var(--theme-color-board);
   --color-theme-cell: var(--theme-color-cell);
+  --color-topbar-accent: var(--theme-color-topbar-accent);
+  --color-topbar-accent-1: var(--theme-color-topbar-accent-1);
+  --color-tomato: var(--theme-color-tomato);
+  --color-orange: var(--theme-color-orange);
+  --color-yellow: var(--theme-color-yellow);
+  --color-green: var(--theme-color-green);
+  --color-blue: var(--theme-color-blue);
+  --color-purple: var(--theme-color-purple);
 }
 
 @layer component {
@@ -45,14 +53,14 @@
   .gradient-center {
     background: radial-gradient(
       circle,
-      color-mix(in srgb, var(--color-theme-accent) 20%, transparent) 0%,
+      color-mix(in srgb, var(--color-topbar-accent) 20%, transparent) 0%,
       color-mix(in srgb, var(--color-theme-background) 50%, transparent) 100%
     );
   }
   .gradient-left-bottom {
     background: linear-gradient(
       45deg,
-      color-mix(in srgb, var(--color-theme-accent-1) 20%, transparent) 0%,
+      color-mix(in srgb, var(--color-topbar-accent-1) 20%, transparent) 0%,
       color-mix(in srgb, var(--color-theme-background) 50%, transparent) 100%
     );
   }
@@ -61,10 +69,21 @@
 :root {
   --theme-color-foreground: #fff;
   --theme-color-background: #000;
-  --theme-color-accent: #de21ac;
-  --theme-color-accent-1: #174b21;
+
   --theme-color-board: #ff0000;
   --theme-color-cell: #ff0000;
+
+  --theme-color-tomato: #F16A50;
+  --theme-color-orange: #FF8B3E;
+  --theme-color-yellow: #F0C000;
+  --theme-color-green: #4CC38A;
+  --theme-color-blue: #52A9FF;
+  --theme-color-purple: #D864D8;
+
+  --theme-color-accent: #de21ac;
+  --theme-color-accent-1: #174b21;
+  --theme-color-topbar-accent: var(--theme-color-tomato);
+  --theme-color-topbar-accent-1: var(--theme-color-purple);
 }
 
 :root {

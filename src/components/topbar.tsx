@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Link } from "react-router-dom";
 import PauseIcon from "../assets/pause.svg?react";
 import PlayIcon from "../assets/play.svg?react";
@@ -28,18 +29,24 @@ export const Topbar = () => {
   };
 
   return (
-    <header className="fixed top-4 left-0 right-0 w-full max-w-[1200px] mx-auto h-13 rounded-full bg-[rgba(33,33,33,0.65)] z-50 px-8">
+    <header className="fixed top-4 left-0 right-0 w-full max-w-[1200px] mx-auto h-13 rounded-full bg-[rgba(33,33,33,0.45)] z-50 px-8">
       <div className="flex items-center justify-between h-full">
         {/* Selected Theme Icon */}
-        <div className="size-[30px]">
+        <div className="size-6">
           <SelectedThemeIcon />
         </div>
 
         {/* HOME (TETRIS)*/}
-        <Link to="/">
-          <div className="font-silkscreen">TESTRIS</div>
+        <Link to="/" className="space-x-1">
+          <Char char="T" className="text-tomato" />
+          <Char char="E" className="text-orange" />
+          <Char char="T" className="text-tomato" />
+          <Char char="R" className="text-green" />
+          <Char char="I" className="text-blue" />
+          <Char char="S" className="text-purple" />
         </Link>
 
+        {/* Play/Pause Button */}
         {status === "idle" ? (
           <Button type="button" onClick={handleStart}>
             <PlayIcon />
@@ -51,5 +58,13 @@ export const Topbar = () => {
         )}
       </div>
     </header>
+  );
+};
+
+const Char = ({ char, className }: { char: string; className: string }) => {
+  return (
+    <span className={clsx("text-xl font-bold font-silkscreen", className)}>
+      {char}
+    </span>
   );
 };
