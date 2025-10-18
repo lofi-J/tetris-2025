@@ -20,7 +20,78 @@ type ThemeDesign = {
 
 export type ThemeConfig = { name: ProgrammingLanguage; config: ThemeDesign };
 
-export const themeConfig = {};
+export const themeConfig: Record<ProgrammingLanguage, ThemeDesign> = {
+  javascript: {
+    foregroundColor: "#0000ff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  typescript: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  python: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  java: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  "c++": {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  "c#": {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  ruby: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  swift: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  rust: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+  go: {
+    foregroundColor: "#fff",
+    backgroundColor: "#000",
+    accentColor: "#ff0000",
+    boardColor: "#ff0000",
+    cellColor: "#ff0000",
+  },
+};
 
 export const languageIconConfig: Record<ProgrammingLanguage, string> = {
   javascript: JavascriptIcon,

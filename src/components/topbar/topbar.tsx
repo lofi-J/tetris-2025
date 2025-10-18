@@ -1,16 +1,12 @@
 import PauseIcon from "../../assets/pause.svg?react";
 import PlayIcon from "../../assets/play.svg?react";
-import { languageIconConfig } from "../../config/theme.config";
-import { useTheme } from "../../context/theme-provider";
 import { useGameStatusStore } from "../../game/game-status.store";
 import { Button } from "../button";
+import { LanguageMotion } from "./language.motion";
 import { TetrisMotion } from "./tetris.motion";
 
 export const Topbar = () => {
   const { status, dispatch } = useGameStatusStore();
-  const { theme } = useTheme();
-
-  const SelectedThemeIcon = languageIconConfig[theme];
 
   const handleStart = () => {
     if (dispatch) {
@@ -31,9 +27,7 @@ export const Topbar = () => {
     <header className="fixed top-4 left-0 right-0 w-full max-w-[1200px] mx-auto h-13 rounded-full bg-[rgba(33,33,33,0.45)] z-50 px-8">
       <div className="flex items-center justify-between h-full">
         {/* Selected Theme Icon */}
-        <div className="size-6">
-          <SelectedThemeIcon />
-        </div>
+        <LanguageMotion />
 
         {/* HOME (TETRIS)*/}
         <TetrisMotion />
