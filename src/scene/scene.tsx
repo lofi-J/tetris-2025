@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Topbar } from "../components/topbar";
+import { Topbar } from "../components/topbar/topbar";
 
 export default function Scene({
   children,

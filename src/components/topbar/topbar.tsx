@@ -1,11 +1,10 @@
-import clsx from "clsx";
-import { Link } from "react-router-dom";
-import PauseIcon from "../assets/pause.svg?react";
-import PlayIcon from "../assets/play.svg?react";
-import { languageIconConfig } from "../config/theme.config";
-import { useTheme } from "../context/theme-provider";
-import { useGameStatusStore } from "../game/game-status.store";
-import { Button } from "./button";
+import PauseIcon from "../../assets/pause.svg?react";
+import PlayIcon from "../../assets/play.svg?react";
+import { languageIconConfig } from "../../config/theme.config";
+import { useTheme } from "../../context/theme-provider";
+import { useGameStatusStore } from "../../game/game-status.store";
+import { Button } from "../button";
+import { TetrisMotion } from "./tetris.motion";
 
 export const Topbar = () => {
   const { status, dispatch } = useGameStatusStore();
@@ -37,18 +36,16 @@ export const Topbar = () => {
         </div>
 
         {/* HOME (TETRIS)*/}
-        <Link to="/" className="space-x-1">
-          <Char char="T" className="text-tomato" />
-          <Char char="E" className="text-orange" />
-          <Char char="T" className="text-tomato" />
-          <Char char="R" className="text-green" />
-          <Char char="I" className="text-blue" />
-          <Char char="S" className="text-purple" />
-        </Link>
+        <TetrisMotion />
 
         {/* Play/Pause Button */}
         {status === "idle" ? (
-          <Button type="button" onClick={handleStart}>
+          <Button
+            variant="transparent"
+            type="button"
+            onClick={handleStart}
+            className="border border-orange"
+          >
             <PlayIcon />
           </Button>
         ) : (
@@ -58,13 +55,5 @@ export const Topbar = () => {
         )}
       </div>
     </header>
-  );
-};
-
-const Char = ({ char, className }: { char: string; className: string }) => {
-  return (
-    <span className={clsx("text-xl font-bold font-silkscreen", className)}>
-      {char}
-    </span>
   );
 };
