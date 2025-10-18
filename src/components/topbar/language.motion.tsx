@@ -60,7 +60,7 @@ export const LanguageMotion = () => {
           }}
         />
       </button>
-      {open && <ThemeSelector />}
+      {open && <ThemeSelector close={() => setOpen(false)} />}
     </div>
   );
 };
