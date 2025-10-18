@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getCSSVariable } from "../../util";
 
 export const TetrisMotion = () => {
   const [charIndex, setCharIndex] = useState(0);
@@ -22,12 +23,6 @@ export const TetrisMotion = () => {
     3: "--color-green",
     4: "--color-blue",
     5: "--color-purple",
-  };
-
-  const getCSSVariable = (key: string) => {
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue(key)
-      .trim();
   };
 
   const handleMouseEnter = (index: number) => {
