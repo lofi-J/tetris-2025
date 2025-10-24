@@ -63,6 +63,38 @@ export const isColliding = (
   return false;
 };
 
+export const getSafePositionWhenColliding = (
+  board: Board,
+  tetromino: Tetromino,
+  position: Position,
+): Position | null => {
+  if (!isColliding(board, tetromino, position)) {
+    return position;
+  }
+
+  const maxOffset = 3; // try up to 3 cells
+
+  for (let offset = 1; offset <= maxOffset; offset++) {
+    // check right position
+    const rightPosition = { ...position, x: position.x + offset };
+    if (
+      rightPosition.x < BOARD_WIDTH &&
+      !isColliding(board, tetromino, rightPosition)
+    ) {
+      return rightPosition;
+    }
+
+    // check left position
+    const leftPosition = { ...position, x: position.x - offset };
+    if (leftPosition.x >= 0 && !isColliding(board, tetromino, leftPosition)) {
+      return leftPosition;
+    }
+  }
+
+  // safe position not found
+  return null;
+};
+
 export const rotateTetromino = (tetromino: Tetromino): Tetromino => {
   const rows = tetromino.length;
   const cols = tetromino[0].length;
@@ -172,6 +204,8 @@ export class Queue {
     if (this.isEmpty()) {
       throw new Error("Tetromino Queue is Empty, it's should not happen");
     }
+
+    this.enqueue(getRandomTetromino());
 
     return this.items.shift() as Tetromino;
   }

@@ -4,7 +4,7 @@ import {
   checkRowIsFull,
   clearLine,
   createRenderBoard,
-  getRandomTetromino,
+  getSafePositionWhenColliding,
   hardDrop,
   isColliding,
   Queue,
@@ -47,9 +47,6 @@ export const gameReducer = (
       state.score += rowIndices.length * 100; // 100 points by one line TODO: consider level
       clearedBoard = clearLine(mergedBoard, rowIndices);
     }
-
-    // 4. add new tetromino to queue and get new tetromino from queue
-    state.nextTetrominos.enqueue(getRandomTetromino());
 
     return {
       ...state,
@@ -112,8 +109,24 @@ export const gameReducer = (
 
     case "ROTATE": {
       const rotatedTetromino = rotateTetromino(tetromino);
+
       if (isColliding(board, rotatedTetromino, position)) {
-        return { ...state };
+        const safePosition = getSafePositionWhenColliding(
+          board,
+          rotatedTetromino,
+          position,
+        );
+
+        // 안전한 위치를 찾지 못하면 회전하지 않음
+        if (!safePosition) {
+          return { ...state };
+        }
+
+        return {
+          ...state,
+          tetromino: rotatedTetromino,
+          position: safePosition,
+        };
       }
 
       return { ...state, tetromino: rotatedTetromino };
