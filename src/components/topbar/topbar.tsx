@@ -1,5 +1,5 @@
-import PauseIcon from "../../assets/pause.svg?react";
-import PlayIcon from "../../assets/play.svg?react";
+import { PauseIcon, PlayIcon } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useGameStatusStore } from "../../game/game-status.store";
 import { Button } from "../button";
 import { LanguageMotion } from "./language.motion";
@@ -7,12 +7,7 @@ import { TetrisMotion } from "./tetris.motion";
 
 export const Topbar = () => {
   const { status, dispatch } = useGameStatusStore();
-
-  const handleStart = () => {
-    if (dispatch) {
-      dispatch({ type: "SET_STATUS", status: "playing" });
-    }
-  };
+  const { pathname } = useLocation();
 
   const togglePlayPause = () => {
     if (dispatch) {
@@ -33,20 +28,13 @@ export const Topbar = () => {
         <TetrisMotion />
 
         {/* Play/Pause Button */}
-        {status === "idle" ? (
-          <Button
-            variant="transparent"
-            type="button"
-            onClick={handleStart}
-            className="border border-orange"
-          >
-            <PlayIcon />
-          </Button>
-        ) : (
-          <Button type="button" onClick={togglePlayPause}>
-            {status === "playing" ? <PauseIcon /> : <PlayIcon />}
-          </Button>
-        )}
+        <Button
+          type="button"
+          onClick={togglePlayPause}
+          disabled={pathname !== "/game"}
+        >
+          {status === "playing" ? <PauseIcon /> : <PlayIcon />}
+        </Button>
       </div>
     </header>
   );
