@@ -62,25 +62,30 @@ export const Loading = ({
 
   return (
     <div className="relative" style={{ width: size * 4, height: size * 4 }}>
-      <div className="flex items-center justify-center">
-        {currentPositions.map((posIndex, blockIndex) => {
-          const pos = getPosByIndex(posIndex);
-          return (
-            <div
-              key={blockIndex}
-              className={clsx("loading-block force-cubic-bezier", className)}
-              style={{
-                ...styles,
-                borderRadius: "2px",
-                boxSizing: "border-box",
-                borderColor: borderColor,
-                backgroundColor: cellColor,
-                left: `${pos.x}px`,
-                top: `${pos.y}px`,
-              }}
-            />
-          );
-        })}
+      <div
+        className="absolute -translate-x-1/2 -translate-y-1/2"
+        style={{ left: `${size}px`, top: `${size}px` }}
+      >
+        <div className="flex items-center justify-center">
+          {currentPositions.map((posIndex, blockIndex) => {
+            const pos = getPosByIndex(posIndex);
+            return (
+              <div
+                key={blockIndex}
+                className={clsx("loading-block force-cubic-bezier", className)}
+                style={{
+                  ...styles,
+                  borderRadius: "2px",
+                  boxSizing: "border-box",
+                  borderColor: borderColor,
+                  backgroundColor: cellColor,
+                  left: `${pos.x}px`,
+                  top: `${pos.y}px`,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

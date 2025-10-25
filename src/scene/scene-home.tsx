@@ -37,7 +37,10 @@ export default function SceneHome() {
             <div></div>
 
             {/* Start Button */}
-            <Link to="/game" className="bg-transparent mt-[80px]">
+            <Link
+              to="/game"
+              className="bg-[#3a1719] border border-[#471a1d] hover:border-[#a33e45] mt-[80px] px-4 py-2 rounded-lg font-silkscreen text-[18px] leading-none pb-2.5 transition-colors duration-300"
+            >
               Start Game
             </Link>
           </div>

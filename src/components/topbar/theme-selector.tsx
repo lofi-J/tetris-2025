@@ -5,9 +5,7 @@ import {
 } from "../../context/theme-provider";
 
 export const ThemeSelector = ({ close }: { close: () => void }) => {
-  const { theme, setTheme } = useTheme();
-
-  const borderColor = themeConfig[theme].boardColor;
+  const { setTheme } = useTheme();
 
   const handleClick = (theme: ProgrammingLanguage) => {
     setTheme(theme);
@@ -15,10 +13,7 @@ export const ThemeSelector = ({ close }: { close: () => void }) => {
   };
 
   return (
-    <div
-      className="absolute top-[56px] left-0 border p-4 rounded-md w-[200px]"
-      style={{ borderColor, backgroundColor: "rgba(33,33,33)" }}
-    >
+    <div className="absolute top-[56px] left-0 border border-[rgb(33,33,33)] bg-[rgba(33,33,33,0.45)] p-4 rounded-md w-[200px]">
       <h1 className="text-nowrap font-semibold text-sm text-center">
         Language Theme
       </h1>
