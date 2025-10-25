@@ -9,5 +9,5 @@ type BoardProps = {
 
 export const BoardComponent = ({ theme, board }: BoardProps) => {
   const Component = boardConfig[theme];
-  return <Component board={board} />;
+  return <Component board={board} className="cell-size" />;
 };

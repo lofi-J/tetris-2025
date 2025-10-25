@@ -5,9 +5,15 @@ import {
 import type { ProgrammingLanguage } from "../context/theme-provider";
 import type { CellValue } from "../game/game.type";
 
+export interface CellComponentProps {
+  cell: CellValue;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
 export const cellConfig: Record<
   ProgrammingLanguage,
-  React.FC<{ cell: CellValue }>
+  React.FC<CellComponentProps>
 > = {
   javascript: JavascriptCell,
   typescript: JavascriptCell,
@@ -23,7 +29,7 @@ export const cellConfig: Record<
 
 export const previewCellConfig: Record<
   ProgrammingLanguage,
-  React.FC<{ cell: CellValue }>
+  React.FC<CellComponentProps>
 > = {
   javascript: JavascriptPreviewCell,
   typescript: JavascriptPreviewCell,

@@ -108,13 +108,10 @@ export default function SceneGame() {
             theme={theme}
           />
           {/* Next Tetromino */}
-          <div className="flex flex-col gap-2">
-            <strong className="text-lg font-semibold mb-2">Next</strong>
-            <div className="border border-white flex flex-col gap-2">
-              {state.nextTetrominos.peekAll().map((tetromino, index) => (
-                <Preview key={`next-${index}`} tetromino={tetromino} />
-              ))}
-            </div>
+          <div className="flex flex-col items-start gap-2">
+            {state.nextTetrominos.peekAll().map((tetromino, index) => (
+              <Preview key={`next-${index}`} tetromino={tetromino} />
+            ))}
           </div>
 
           {/* Score */}

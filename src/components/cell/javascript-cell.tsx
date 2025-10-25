@@ -1,21 +1,29 @@
 import clsx from "clsx";
-import type { CellValue } from "../../game/game.type";
+import type { CellComponentProps } from "../../config/cell.config";
 
-export const JavascriptCell = ({ cell }: { cell: CellValue }) => {
+export const JavascriptCell = ({
+  cell,
+  className,
+  style,
+}: CellComponentProps) => {
   return (
     <div
       className={clsx(
-        "cell-size border border-red-500 text-[10px] min-w-5 min-h-5",
+        "border border-red-500 text-[10px]",
         cell && "bg-amber-500",
+        className,
       )}
+      style={style}
     ></div>
   );
 };
 
-export const JavascriptPreviewCell = ({ cell }: { cell: CellValue }) => {
+export const JavascriptPreviewCell = ({
+  cell,
+  className,
+  style,
+}: CellComponentProps) => {
   return (
-    <div
-      className={clsx("cell-size min-w-5 min-h-5", cell && "bg-blue-500")}
-    ></div>
+    <div className={clsx(cell && "bg-blue-500", className)} style={style} />
   );
 };

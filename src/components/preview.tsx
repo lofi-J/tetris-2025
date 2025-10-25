@@ -11,8 +11,8 @@ export const Preview = ({ tetromino }: { tetromino: Tetromino }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="grid" style={styles}>
+    <div className="flex justify-center items-start">
+      <div className="grid grid-cols-4" style={styles}>
         {tetromino.map((row) => {
           return row.map((col) => (
             <BasePreviewCell key={uuidv4()} cell={col} theme={theme} />
