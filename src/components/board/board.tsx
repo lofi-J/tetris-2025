@@ -1,5 +1,6 @@
 import { boardConfig } from "../../config/board.config";
 import type { ProgrammingLanguage } from "../../context/theme-provider";
+import { useGameSettingStore } from "../../game/game-setting.store";
 import type { Board } from "../../game/game.type";
 
 type BoardProps = {
@@ -9,5 +10,11 @@ type BoardProps = {
 
 export const BoardComponent = ({ theme, board }: BoardProps) => {
   const Component = boardConfig[theme];
-  return <Component board={board} className="cell-size" />;
+  const cellSize = useGameSettingStore((state) => state.cellSize);
+
+  const style = {
+    width: `${cellSize}px`,
+    height: `${cellSize}px`,
+  };
+  return <Component board={board} style={style} />;
 };

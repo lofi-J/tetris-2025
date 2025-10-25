@@ -21,12 +21,6 @@
 }
 
 @layer component {
-  .cell-size {
-    @apply w-5 h-5 min-w-5 min-h-5;
-  }
-  .preview-cell-size {
-    @apply w-3 h-3 min-w-3 min-h-3;
-  }
   .loading-block {
     @apply absolute border border-theme-foreground transition-all duration-500;
   }

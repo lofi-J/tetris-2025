@@ -10,11 +10,15 @@ export const Preview = ({ tetromino }: { tetromino: Tetromino }) => {
     gridTemplateColumns: `repeat(${tetromino.length}, 1fr)`,
   };
 
+  const alignedTetromino = tetromino.map((row) =>
+    row.some((col) => col !== 0) ? row : null,
+  );
+
   return (
-    <div className="flex justify-center items-start">
-      <div className="grid grid-cols-4" style={styles}>
-        {tetromino.map((row) => {
-          return row.map((col) => (
+    <div className="flex justify-center items-center">
+      <div className="grid" style={styles}>
+        {alignedTetromino.map((row) => {
+          return row?.map((col) => (
             <BasePreviewCell key={uuidv4()} cell={col} theme={theme} />
           ));
         })}

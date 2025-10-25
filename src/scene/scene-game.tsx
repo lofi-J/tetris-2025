@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BoardComponent } from "../components/board/board";
 import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
+import { useGameSettingStore } from "../game/game-setting.store";
 import { useGameStatusStore } from "../game/game-status.store";
 import { gameReducer, initialState } from "../game/game.state";
 import { createRenderBoard } from "../game/game.util";
@@ -14,7 +15,7 @@ export default function SceneGame() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const gameStatus = state.status;
   const setDispatch = useGameStatusStore((state) => state.setDispatch);
-
+  const previewCellSize = useGameSettingStore((state) => state.previewCellSize);
   // setDispatch for topbar
   useEffect(() => {
     setDispatch(dispatch);
@@ -108,7 +109,12 @@ export default function SceneGame() {
             theme={theme}
           />
           {/* Next Tetromino */}
-          <div className="flex flex-col items-start gap-2">
+          <div
+            className="flex flex-col items-start gap-2"
+            style={{
+              minWidth: `${previewCellSize * 4}px`,
+            }}
+          >
             {state.nextTetrominos.peekAll().map((tetromino, index) => (
               <Preview key={`next-${index}`} tetromino={tetromino} />
             ))}

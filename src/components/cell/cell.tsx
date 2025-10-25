@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { cellConfig, previewCellConfig } from "../../config/cell.config";
 import type { ProgrammingLanguage } from "../../context/theme-provider";
+import { useGameSettingStore } from "../../game/game-setting.store";
 import type { CellValue } from "../../game/game.type";
 
 interface CellProps {
@@ -10,12 +11,20 @@ interface CellProps {
 
 export const BaseCell = memo(({ theme, cell }: CellProps) => {
   const Component = cellConfig[theme];
-  return <Component cell={cell} className="cell-size" />;
+  const cellSize = useGameSettingStore((state) => state.cellSize);
+  const style = {
+    width: `${cellSize}px`,
+    height: `${cellSize}px`,
+  };
+  return <Component cell={cell} style={style} />;
 });
 
 export const BasePreviewCell = memo(({ theme, cell }: CellProps) => {
-  if (!cell) return null;
-
   const Component = previewCellConfig[theme];
-  return <Component cell={cell} className="preview-cell-size" />;
+  const previewCellSize = useGameSettingStore((state) => state.previewCellSize);
+  const style = {
+    width: `${previewCellSize}px`,
+    height: `${previewCellSize}px`,
+  };
+  return <Component cell={cell} style={style} />;
 });
