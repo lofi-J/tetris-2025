@@ -66,12 +66,17 @@ export const gameReducer = (
   };
 
   switch (action.type) {
-    case "SET_STATUS":
+    case "SET_STATUS": {
+      const tetromino =
+        state.status === "idle"
+          ? state.nextTetrominos.dequeue()
+          : state.tetromino;
       return {
         ...state,
         status: action.status,
-        tetromino: state.nextTetrominos.dequeue(),
+        tetromino: tetromino,
       };
+    }
 
     case "MOVE_LEFT":
       if (isColliding(board, tetromino, { ...position, x: position.x - 1 })) {
