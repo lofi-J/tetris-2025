@@ -43,7 +43,7 @@ export const isColliding = (
         const posX = x + position.x;
 
         // Check if the tetromino is out of board frame
-        if (posX < 0 || posX > BOARD_WIDTH - 1) {
+        if (posX < 0 || posX > BOARD_WIDTH - 1 || posY < 0) {
           return true;
         }
 

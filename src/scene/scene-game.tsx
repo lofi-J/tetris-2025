@@ -16,6 +16,7 @@ export default function SceneGame() {
   const gameStatus = state.status;
   const setDispatch = useGameStatusStore((state) => state.setDispatch);
   const previewCellSize = useGameSettingStore((state) => state.previewCellSize);
+
   // setDispatch for topbar
   useEffect(() => {
     setDispatch(dispatch);
@@ -62,18 +63,23 @@ export default function SceneGame() {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case "ArrowLeft":
+          event.preventDefault();
           dispatch({ type: "MOVE_LEFT" });
           break;
         case "ArrowRight":
+          event.preventDefault();
           dispatch({ type: "MOVE_RIGHT" });
           break;
         case "ArrowDown":
+          event.preventDefault();
           dispatch({ type: "MOVE_DOWN" });
           break;
         case "ArrowUp":
+          event.preventDefault();
           dispatch({ type: "ROTATE" });
           break;
         case " ": // spacebar
+          event.preventDefault();
           dispatch({ type: "HARD_DROP" });
           break;
       }

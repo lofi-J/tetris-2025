@@ -48,21 +48,26 @@ export const gameReducer = (
       clearedBoard = clearLine(mergedBoard, rowIndices);
     }
 
+    // 4. get new tetromino from queue
+    const newTetromino = state.nextTetrominos.dequeue();
+
+    // 5. check game over: if new tetromino collides at spawn position
+    if (isColliding(clearedBoard, newTetromino, initialPos)) {
+      return {
+        ...state,
+        board: clearedBoard,
+        tetromino: newTetromino,
+        position: initialPos,
+        status: "gameover",
+      };
+    }
+
     return {
       ...state,
       board: clearedBoard,
-      tetromino: state.nextTetrominos.dequeue(), // get new tetromino from queue
-      position: initialPos, // reset position
+      tetromino: newTetromino,
+      position: initialPos,
     };
-  };
-
-  const checkGameOver = (state: GameState): boolean => {
-    const { board, tetromino, position } = state;
-
-    if (position.y <= 1 && isColliding(board, tetromino, position)) {
-      return true;
-    }
-    return false;
   };
 
   switch (action.type) {
@@ -100,10 +105,6 @@ export const gameReducer = (
 
     case "MOVE_DOWN":
       if (isColliding(board, tetromino, { ...position, y: position.y + 1 })) {
-        if (checkGameOver(state)) {
-          return { ...state, status: "gameover" };
-        }
-
         return getDequeuedAction(state);
       }
 
@@ -138,10 +139,6 @@ export const gameReducer = (
     }
 
     case "HARD_DROP": {
-      if (checkGameOver(state)) {
-        return { ...state, status: "gameover" };
-      }
-
       const newState: GameState = {
         ...state,
         position: hardDrop(board, tetromino, position),
