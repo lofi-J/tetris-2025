@@ -1,8 +1,10 @@
 import type { BoardComponentProps } from "../../config/board.config";
 import { JavascriptCell } from "../cell/javascript-cell";
+import { IdeBottomStatus } from "./ide-bottom-status";
 
 export const JavascriptBoard = ({
   board,
+  gameStatus,
   className,
   style,
 }: BoardComponentProps) => {
@@ -53,9 +55,7 @@ export const JavascriptBoard = ({
 
         {/* Bottom status bar */}
         <div className="h-5 bg-gradient-to-r from-gray-800/95 via-gray-750/95 to-gray-800/95 border-t border-gray-700/80 flex items-center px-3 backdrop-blur-sm">
-          <span className="text-[9px] font-mono text-green-400">
-            ▶ Running...
-          </span>
+          <IdeBottomStatus status={gameStatus} />
           <span className="text-[9px] font-mono text-gray-500 ml-auto">
             Ln 20, Col 10
           </span>

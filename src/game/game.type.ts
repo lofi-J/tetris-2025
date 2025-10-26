@@ -20,6 +20,7 @@ export type GameState = {
   position: Position;
   score: number;
   level: number;
+  linesCleared: number; // Total lines cleared (for level calculation)
 };
 
 export type GameAction =

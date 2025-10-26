@@ -111,6 +111,7 @@ export default function SceneGame() {
               state.tetromino,
               state.position,
             )}
+            gameStatus={gameStatus}
             theme={theme}
           />
           {/* Next Tetromino */}
@@ -125,16 +126,50 @@ export default function SceneGame() {
             ))}
           </div>
 
-          {/* Score */}
-          <div className="flex flex-col gap-2">
-            <strong className="text-lg font-semibold mb-2">Score</strong>
-            <p className="text-lg font-semibold">{state.score}</p>
-          </div>
+          {/* Stats Panel */}
+          <div className="flex flex-col gap-3">
+            {/* Score */}
+            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 shadow-xl overflow-hidden min-w-[160px]">
+              {/* Header */}
+              <div className="h-7 bg-gradient-to-r from-gray-800/95 via-gray-750/95 to-gray-800/95 border-b border-gray-700/80 flex items-center px-3 backdrop-blur-sm">
+                <span className="text-[10px] font-mono text-gray-400">
+                  score.js
+                </span>
+              </div>
+              {/* Content */}
+              <div className="p-4">
+                <div className="font-mono text-xs text-gray-500 mb-1">
+                  <span className="text-purple-400">const</span>{" "}
+                  <span className="text-blue-300">score</span>{" "}
+                  <span className="text-gray-500">=</span>
+                </div>
+                <div className="font-mono text-3xl font-bold text-yellow-400 pl-4">
+                  {state.score.toLocaleString()}
+                </div>
+              </div>
+            </div>
 
-          {/* Level */}
-          <div className="flex flex-col gap-2">
-            <strong className="text-lg font-semibold mb-2">Level</strong>
-            <p className="text-lg font-semibold">{state.level}</p>
+            {/* Level */}
+            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 shadow-xl overflow-hidden min-w-[160px]">
+              {/* Header */}
+              <div className="h-7 bg-gradient-to-r from-gray-800/95 via-gray-750/95 to-gray-800/95 border-b border-gray-700/80 flex items-center px-3 backdrop-blur-sm">
+                <span className="text-[10px] font-mono text-gray-400">
+                  level.js
+                </span>
+              </div>
+              {/* Content */}
+              <div className="p-4">
+                <div className="font-mono text-xs text-gray-500 mb-1">
+                  <span className="text-purple-400">const</span>{" "}
+                  <span className="text-blue-300">level</span>{" "}
+                  <span className="text-gray-500">=</span>
+                </div>
+                <div className="font-mono text-3xl font-bold text-green-400 pl-4 flex items-baseline gap-1">
+                  {state.level}
+                  <span className="text-xs text-gray-500">/6</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
