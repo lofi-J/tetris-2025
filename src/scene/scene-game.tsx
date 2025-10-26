@@ -1,6 +1,9 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { BoardComponent } from "../components/board/board";
+import { Level } from "../components/board/level";
+import { Score } from "../components/board/score";
+import { Timer } from "../components/board/timer";
 import { Preview } from "../components/preview";
 import { useTheme } from "../context/theme-provider";
 import { useGameSettingStore } from "../game/game-setting.store";
@@ -84,8 +87,8 @@ export default function SceneGame() {
 
   return (
     <Scene>
-      <div className="flex flex-col justify-center items-center h-full gap-4">
-        <div className="flex gap-8 items-start">
+      <div className="flex justify-center items-center h-full gap-4">
+        <div className="flex gap-8 items-stretch">
           <BoardComponent
             board={createRenderBoard(
               state.board,
@@ -95,63 +98,26 @@ export default function SceneGame() {
             gameStatus={gameStatus}
             theme={theme}
           />
-          {/* Next Tetromino */}
-          <div
-            className="flex flex-col items-start gap-2"
-            style={{
-              minWidth: `${previewCellSize * 4}px`,
-            }}
-          >
-            {state.nextTetrominos.peekAll().map((tetromino, index) => (
-              <Preview key={`next-${index}`} tetromino={tetromino} />
-            ))}
-          </div>
-
-          {/* Stats Panel */}
-          <div className="flex flex-col gap-3">
-            {/* Score */}
-            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 shadow-xl overflow-hidden min-w-[160px]">
-              {/* Header */}
-              <div className="h-7 bg-gradient-to-r from-gray-800/95 via-gray-750/95 to-gray-800/95 border-b border-gray-700/80 flex items-center px-3 backdrop-blur-sm">
-                <span className="text-[10px] font-mono text-gray-400">
-                  score.js
-                </span>
-              </div>
-              {/* Content */}
-              <div className="p-4">
-                <div className="font-mono text-xs text-gray-500 mb-1">
-                  <span className="text-purple-400">const</span>{" "}
-                  <span className="text-blue-300">score</span>{" "}
-                  <span className="text-gray-500">=</span>
-                </div>
-                <div className="font-mono text-3xl font-bold text-yellow-400 pl-4">
-                  {state.score.toLocaleString()}
-                </div>
-              </div>
+          <div className="flex flex-col items-start justify-between flex-1 min-w-[130px]">
+            {/* Next Tetromino */}
+            <div
+              className="flex flex-col items-start gap-2"
+              style={{
+                minWidth: `${previewCellSize * 4}px`,
+              }}
+            >
+              {state.nextTetrominos.peekAll().map((tetromino, index) => (
+                <Preview key={`next-${index}`} tetromino={tetromino} />
+              ))}
             </div>
-
-            {/* Level */}
-            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 shadow-xl overflow-hidden min-w-[160px]">
-              {/* Header */}
-              <div className="h-7 bg-gradient-to-r from-gray-800/95 via-gray-750/95 to-gray-800/95 border-b border-gray-700/80 flex items-center px-3 backdrop-blur-sm">
-                <span className="text-[10px] font-mono text-gray-400">
-                  level.js
-                </span>
-              </div>
-              {/* Content */}
-              <div className="p-4">
-                <div className="font-mono text-xs text-gray-500 mb-1">
-                  <span className="text-purple-400">const</span>{" "}
-                  <span className="text-blue-300">level</span>{" "}
-                  <span className="text-gray-500">=</span>
-                </div>
-                <div className="font-mono text-3xl font-bold text-green-400 pl-4 flex items-baseline gap-2">
-                  {state.level}
-                  <span className="text-xs text-gray-500">
-                    ({state.linesCleared} lines)
-                  </span>
-                </div>
-              </div>
+            {/* Stats Panel */}
+            <div className="flex flex-col gap-3">
+              {/* Time */}
+              <Timer status={gameStatus} />
+              {/* Level */}
+              <Level level={state.level} linesCleared={state.linesCleared} />
+              {/* Score */}
+              <Score score={state.score} />
             </div>
           </div>
         </div>
