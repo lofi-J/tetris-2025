@@ -104,7 +104,6 @@ export default function SceneGame() {
   return (
     <Scene>
       <div className="flex flex-col justify-center items-center h-full gap-4">
-        <h1 className="text-2xl font-bold">{theme}</h1>
         <div className="flex gap-8 items-start">
           <BoardComponent
             board={createRenderBoard(
