@@ -23,6 +23,7 @@ export const initialState: GameState = {
   position: initialPos,
   score: 0,
   level: 1,
+  linesCleared: 0,
 };
 
 export const gameReducer = (
@@ -41,10 +42,27 @@ export const gameReducer = (
     // 2. full row check and remove
     const rowIndices = checkRowIsFull(board, tetromino, position);
 
-    // 3. add score and drop line index
+    // 3. add score, update lines cleared, and clear lines
     let clearedBoard: Board = mergedBoard;
+    let newLinesCleared = state.linesCleared;
+    let newLevel = state.level;
+    let newScore = state.score;
+
     if (rowIndices.length > 0) {
-      state.score += rowIndices.length * 100; // 100 points by one line TODO: consider level
+      // Standard Tetris scoring (based on level)
+      // 1 line: 40 * level
+      // 2 lines: 100 * level
+      // 3 lines: 300 * level
+      // 4 lines (Tetris): 1200 * level
+      const scoreMultipliers = [0, 40, 100, 300, 1200];
+      newScore += scoreMultipliers[rowIndices.length] * state.level;
+
+      // Update lines cleared
+      newLinesCleared += rowIndices.length;
+
+      // Level up every 10 lines (standard Tetris rule)
+      newLevel = Math.floor(newLinesCleared / 10) + 1;
+
       clearedBoard = clearLine(mergedBoard, rowIndices);
     }
 
@@ -59,6 +77,9 @@ export const gameReducer = (
         tetromino: newTetromino,
         position: initialPos,
         status: "gameover",
+        score: newScore,
+        linesCleared: newLinesCleared,
+        level: newLevel,
       };
     }
 
@@ -67,6 +88,9 @@ export const gameReducer = (
       board: clearedBoard,
       tetromino: newTetromino,
       position: initialPos,
+      score: newScore,
+      linesCleared: newLinesCleared,
+      level: newLevel,
     };
   };
 

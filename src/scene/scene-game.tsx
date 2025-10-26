@@ -40,25 +40,6 @@ export default function SceneGame() {
     return () => clearInterval(interval);
   }, [state.level, gameStatus]);
 
-  // increase level
-  useEffect(() => {
-    if (state.score >= 3000 && state.level === 1) {
-      dispatch({ type: "INCREASE_LEVEL" });
-    }
-    if (state.score >= 10000 && state.level === 2) {
-      dispatch({ type: "INCREASE_LEVEL" });
-    }
-    if (state.score >= 15000 && state.level === 3) {
-      dispatch({ type: "INCREASE_LEVEL" });
-    }
-    if (state.score >= 20000 && state.level === 4) {
-      dispatch({ type: "INCREASE_LEVEL" });
-    }
-    if (state.score >= 25000 && state.level === 5) {
-      dispatch({ type: "INCREASE_LEVEL" });
-    }
-  }, [state.score, state.level]);
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -164,9 +145,11 @@ export default function SceneGame() {
                   <span className="text-blue-300">level</span>{" "}
                   <span className="text-gray-500">=</span>
                 </div>
-                <div className="font-mono text-3xl font-bold text-green-400 pl-4 flex items-baseline gap-1">
+                <div className="font-mono text-3xl font-bold text-green-400 pl-4 flex items-baseline gap-2">
                   {state.level}
-                  <span className="text-xs text-gray-500">/6</span>
+                  <span className="text-xs text-gray-500">
+                    ({state.linesCleared} lines)
+                  </span>
                 </div>
               </div>
             </div>
